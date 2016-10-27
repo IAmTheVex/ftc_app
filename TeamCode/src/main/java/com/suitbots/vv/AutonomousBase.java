@@ -6,10 +6,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import java.util.Locale;
 
 public abstract class AutonomousBase extends LinearOpMode {
-    protected TankRobot robot;
+    protected TankRobot robot = new TankRobot();
 
+    /// Set up the robot's hardware
     protected void initialize() throws InterruptedException {
-        robot = new TankRobot();
         robot.initHardware(hardwareMap);
         robot.calibrateGyro();
         int count = 0;
@@ -28,6 +28,7 @@ public abstract class AutonomousBase extends LinearOpMode {
     }
 
     public static final int TICKS_PER_REV = 1140;
+    /// Drive forward a certain number of inches using encoders
     public void fwd(double inches) throws InterruptedException {
         final int ticks = (int)(TICKS_PER_REV * inches / robot.WHEEL_RADIUS_IN);
         robot.resetDriveEncoders();
@@ -41,18 +42,22 @@ public abstract class AutonomousBase extends LinearOpMode {
         robot.popRunMode();
     }
 
+    /// Drive forward a certain number of field squares
     public void fwdSquares(double squares) throws InterruptedException {
         fwd(24.0 * squares);
     }
 
+    /// Drive forward a certain number of meters
     public void fwdMeters(double meters) throws InterruptedException {
         fwd(39.3701 * meters);
     }
 
+    /// Turn a certain number of degrees
     public void turn(int degrees) throws InterruptedException {
         turn(degrees, true);
     }
 
+    /// Turn a certain number of degrees, optionally not resetting the gyro
     public void turn(int _degrees, boolean reset_heading) throws InterruptedException {
         final double P = .1;
         robot.pushRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -74,6 +79,7 @@ public abstract class AutonomousBase extends LinearOpMode {
 
     public static final double LINE_SPEED = .4;
     public static final double LINE_THRESHOLD = 3.0;
+    /// Drive forward slowly until the optical distance sensor is over a white line
     public void driveToWhiteLine() throws InterruptedException {
         robot.pushRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.setDriveMotors(LINE_SPEED, LINE_SPEED);
@@ -87,6 +93,7 @@ public abstract class AutonomousBase extends LinearOpMode {
     public static double WALL_SPEED = .2;
     public static final double WALL_DISTANCE_THRESHOLD = 10.0;
     public static double WALL_LIGHT_THRESHOLD = 50.0;
+    /// Drive forward slowly until you're a certain distance from the wall
     public void driveToWall() throws InterruptedException {
         robot.pushRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.setDriveMotors(WALL_SPEED, WALL_SPEED);
