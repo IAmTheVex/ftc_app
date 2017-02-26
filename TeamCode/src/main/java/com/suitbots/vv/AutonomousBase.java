@@ -138,6 +138,7 @@ public abstract class AutonomousBase extends LinearOpMode  {
     }
 
     private void fire(long timeout) throws InterruptedException {
+        robot.setFlipperPower(0.0);
         robot.fire();
         waitTimeout(timeout, new Callable<Boolean>() {
             @Override

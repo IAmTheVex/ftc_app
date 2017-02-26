@@ -280,7 +280,7 @@ public abstract class AutonomiaRapida extends AutonomousBase {
             }
     };
 
-    private Step[] basic_steps = han_solo;
+    private Step[] basic_steps = good_old_steps;
 
     private ArrayList<Step> steps = new ArrayList<>();
 
