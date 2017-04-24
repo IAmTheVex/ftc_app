@@ -180,10 +180,6 @@ public class MecanumRobot {
         final long t0 = System.currentTimeMillis();
         boolean activated = false;
         while (MAX_PRESS_TIME > (System.currentTimeMillis() - t0)) {
-            if (getColorAlpha() < 1) {
-                activated = true;
-                break;
-            }
             Thread.sleep(10);
         }
         final long t1 = System.currentTimeMillis();

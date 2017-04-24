@@ -173,7 +173,7 @@ public abstract class AutonomousBase extends LinearOpMode  {
         driveToWhiteLine(dir, WHITE_LINE_SPEED / 2.0);
     }
 
-    private static final double LINE_LIGHT_READING_MIN = 4.0;
+    private static final double LINE_LIGHT_READING_MIN = 2.0;
     private static final double LINE_READING_SCALE_FACTOR = 3.0;
     private void driveToWhiteLine(double dir, double speed) throws InterruptedException {
         robot.drive(dir, speed, 0.0);
@@ -186,7 +186,7 @@ public abstract class AutonomousBase extends LinearOpMode  {
 
     }
 
-    private static final double SNEAKY_SPEED = .2;
+    private static final double SNEAKY_SPEED = .15;
     private static final double SNEAKY_SCALE = 0.01;
     protected void sneakToBeacons() throws InterruptedException {
         while(! robot.touchSensorPressed()){
