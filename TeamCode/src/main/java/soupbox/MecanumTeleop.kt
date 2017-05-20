@@ -5,8 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 
-val EPSILON = 0.0001
-
 fun cube(x : Float) : Double { return Math.pow(x.toDouble(), 3.0) }
 
 @TeleOp(name = "Basic Mecanum")
@@ -41,7 +39,7 @@ class MecanumTeleop : OpMode() {
         val rfp = c - rot
         val lrp = c + rot
         val rrp = s - rot
-        val mx = doubleArrayOf(EPSILON, lfp, rfp, lrp, rrp).reduce {
+        val mx = doubleArrayOf(1.0, lfp, rfp, lrp, rrp).reduce {
             acc, d -> Math.max(acc, Math.abs(d))
         }
         lf?.power = lfp / mx
