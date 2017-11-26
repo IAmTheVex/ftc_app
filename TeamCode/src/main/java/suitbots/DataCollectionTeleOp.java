@@ -30,7 +30,7 @@ public class DataCollectionTeleOp extends OpMode {
     public static final File FIRST_FOLDER = new File(ROOT_FOLDER + "/FIRST/");
     private int countB = 1;
     private int countR = 1;
-
+    private Brain brain = BrainBuilder.makeBrain();
 
     public void getColor() {
         jewelColorDetector.alpha();
@@ -56,30 +56,37 @@ public class DataCollectionTeleOp extends OpMode {
 
     @Override
     public void loop() {
+        final int r = jewelColorDetector.red();
+        final int g = jewelColorDetector.green();
+        final int b = jewelColorDetector.blue();
+        final int a = jewelColorDetector.alpha();
         if(g1.X()){
             printf.printf("%d\t%d\t%d\t%d\t%s\n",
-                    jewelColorDetector.red(),
-                    jewelColorDetector.green(),
-                    jewelColorDetector.blue(),
-                    jewelColorDetector.alpha(),
+                    r,
+                    g,
+                    b,
+                    a,
                     "BLUE"
                     );
             telemetry.addData("Writing", "BLUE");
             telemetry.addData("Counter BLUE", countB++);
         } else if(g1.B()){
             printf.printf("%d\t%d\t%d\t%d\t%s\n",
-                    jewelColorDetector.red(),
-                    jewelColorDetector.green(),
-                    jewelColorDetector.blue(),
-                    jewelColorDetector.alpha(),
+                    r,
+                    g,
+                    b,
+                    a,
                     "RED");
             telemetry.addData("Writing", "RED");
             telemetry.addData("Counter RED", countR++);
+        } else {
+            telemetry.addData("Brain Guesses",
+                    brain.predict(new double[]{r, g, b, a}) == 0 ? "BLUE" : "RED");
         }
-        telemetry.addData("Color Red - ",jewelColorDetector.red());
-        telemetry.addData("Color Green - ",jewelColorDetector.green());
-        telemetry.addData("Color Blue - ",jewelColorDetector.blue());
-        telemetry.addData("Color Alpha - ",jewelColorDetector.alpha());
+        telemetry.addData("Color Red - ", r);
+        telemetry.addData("Color Green - ", g);
+        telemetry.addData("Color Blue - ", b);
+        telemetry.addData("Color Alpha - ", a);
 
         g1.update();
         g2.update();
